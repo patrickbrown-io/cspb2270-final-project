@@ -10,14 +10,14 @@
 //  CU ID: pabr5825
 //  GitHub Username: patrickbrown-io
 
-#include "Matrix.h"
+#include "matrix.h"
 #include <iostream>
 
 // Constructor with dimensions
 Matrix::Matrix(int width, int height): width(width), height(height), data(height, std::vector<int>(width, 0)) {}
 
 // Default constructor
-Matrix::Matrix() : width(0), height(0), data(std::vector<std::vector<int>>()) {}
+Matrix::Matrix() : width(0), height(0), data(std::vector<std::vector<int> >()) {}
 
 // Destructor
 Matrix::~Matrix() {}
@@ -47,9 +47,3 @@ bool replace(int index_x, int index_y, int new_value) { return true; }
 
 // Prints the matrix
 void Matrix::print_matrix() {}
-
-// TO DO: 
-// add, subtract, multiply, divide
-// add data to a new matrix
-// sorts
-// combine arrays

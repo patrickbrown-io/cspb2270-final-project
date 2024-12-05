@@ -32,10 +32,10 @@ public:
   // Print the matrix for debugging
   void print_matrix();
 
-private:
+  private:
   int width;
   int height;
-  std::vector<std::vector<int>> data;
+  std::vector<std::vector<int> > data;
 };
 
 #endif
