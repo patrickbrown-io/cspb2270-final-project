@@ -22,16 +22,16 @@ public:
     void prompt_user();
 
     // Add a matrix to the store with a user-provided label (name, should make it easier for retrieval)
-    void add_matrix(const std::string& name, const Matrix& matrix);
+    void add_matrix(std::string& name, Matrix& matrix);
 
     // Get a matrix by its name
-    Matrix* get_matrix(const std::string& name);
+    Matrix* get_matrix(std::string& name);
 
     // Remove a matrix by its name
-    bool remove_matrix(const std::string& name);
+    bool remove_matrix(std::string& name);
 
     // Print all matrices and their names
-    void print_store() const;
+    void print_store();
 
     // Math functions
     Matrix add_matrices(Matrix &matrixA, Matrix &matrixB);

@@ -24,26 +24,43 @@ Matrix::~Matrix() {}
 
 // Gets the value at (index_x, index_y)
 int Matrix::value_at(int index_x, int index_y) {
+    // to do
     return 1;
 }
 
-// Sets the value at (index_x, index_y)
+// Sets the value at (index_x, index_y), will be programmatically set via a loop
 bool Matrix::set_value(int index_x, int index_y, int value) {
-  return true;
+    if (index_x >= 0 && index_x < width && index_y >= 0 && index_y < height) {
+        data[index_y][index_x] = value;
+        return true;
+    }
+    return false;
 }
 
 // Searches for a value in the matrix
 bool Matrix::search(int value) {
+    // to do
   return false;
 }
 
 // Remove value at (index_x, index_y)
 bool Matrix::remove(int index_x, int index_y) {
+  // to do
   return true;
 }
 
 // Replaces value at the (index_x, index_y)
-bool replace(int index_x, int index_y, int new_value) { return true; }
+bool replace(int index_x, int index_y, int new_value) { 
+    // to do
+    return true; 
+}
 
 // Prints the matrix
-void Matrix::print_matrix() {}
+void Matrix::print_matrix() {
+    for (int i = 0; i < height; ++i) {
+        for (int j = 0; j < width; ++j) {
+            std::cout << data[i][j] << " ";
+        }
+        std::cout << std::endl; // adds a new line after the rows to better resemble a matrix
+    }
+}
