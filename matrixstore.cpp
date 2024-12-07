@@ -35,6 +35,8 @@ void MatrixStore::prompt_user() {
         std::cout << std::endl;
         std::cout << "1) See all available" << std::endl;
         std::cout << std::endl;
+        std::cout << "2) Remove a Matrix" << std::endl;
+        std::cout << std::endl;
         // Add more
         std::cout << "Enter menu selection (Q to quit): ";
         std::cin >> input;
@@ -64,9 +66,9 @@ void MatrixStore::prompt_user() {
                     // Counter for total to enter
                     int totalCount = rows * cols;
                     // Insert values until we hit the counts
-                    for (int i = 0; i < rows; ++i)
+                    for (int i = 0; i < rows; i++)
                     {
-                        for (int j = 0; j < cols; ++j)
+                        for (int j = 0; j < cols; j++)
                         {   // log a count for ease of user input
                             std::cout << "Enter value (" << (totalCount--) << " left): ";
                             int value;
@@ -98,13 +100,36 @@ void MatrixStore::prompt_user() {
                 else
                 {
                     // Iterate over the whole store
-                    for (size_t i = 0; i < store.size(); ++i) {
+                    for (int i = 0; i < store.size(); i++) {
                         // For each node -- log name, and print matrix
                         MatrixNode& node = store[i];
                         std::cout << "Matrix Name: " << node.name << std::endl;
                         node.matrix.print_matrix(); // Print the contents of the matrix
                         std::cout << std::endl << "--------" << std::endl;
                         std::cout << std::endl;
+                    }
+                }
+                break;
+            }
+            case 2: {
+                std::cout << "Remove a Matrix Selected" << std::endl;
+                // empty case
+                if (store.empty()) {
+                    std::cout << "No matrices available." << std::endl
+                              << std::endl;
+                } else {
+                    // input name of the matrix they want to destroy
+                    std::string matrixName;
+                    std::cout << "Enter the name of the matrix to remove: ";
+                    // this line is needed to clear input buffer
+                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    std::getline(std::cin, matrixName); // Get the matrix name
+
+                    // remove it, or provide failure message
+                    if (remove_matrix(matrixName)) {
+                        std::cout << "Matrix \"" << matrixName << "\" removed successfully." << std::endl;
+                    } else {
+                        std::cout << "Matrix \"" << matrixName << "\" not found." << std::endl;
                     }
                 }
                 break;
@@ -130,15 +155,32 @@ void MatrixStore::add_matrix(std::string& name, Matrix& matrix) {
     std::cout << name << "' added to the store." << std::endl;
 }
 
-// Get a matrix by its name
+// TO DO -- looks right but isnt implemented anywhere yet
+// Get a matrix by its name. NEED TO TEST.
+// Can use for update or sort?
 Matrix* MatrixStore::get_matrix(std::string& name) {
-    // TO DO
-    return nullptr;
+    // iterate over the store and return the pointer
+    for (int i = 0; i < store.size(); i++){
+        MatrixNode &node = store[i];
+        if(node.name == name){
+            return &node.matrix;
+        }
+    }
+        return nullptr;
 }
 
 // Remove a matrix by its name
 bool MatrixStore::remove_matrix(std::string& name) {
-    // to do
+    // iterate through the store
+    for (int i = 0; i < store.size(); i++) {
+        // Check if the current node matches the name
+        if (store[i].name == name) {
+            store.erase(store.begin() + i);
+            // if we find it, return true
+            return true;
+        }
+    }
+    // Matrix not found
     return false;
 }
 
@@ -148,7 +190,7 @@ void MatrixStore::print_store() {
     if (store.empty()) {
         std::cout << "No matrices available." << std::endl;
     } else {
-        for (size_t i = 0; i < store.size(); i++) {
+        for (int i = 0; i < store.size(); i++) {
             MatrixNode& node = store[i];
             std::cout << "Matrix Name: " << node.name << std::endl;
             node.matrix.print_matrix();
