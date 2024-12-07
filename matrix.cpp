@@ -64,3 +64,10 @@ void Matrix::print_matrix() {
         std::cout << std::endl; // adds a new line after the rows to better resemble a matrix
     }
 }
+// access private attributes
+  int Matrix::get_width(){
+      return this->width;
+  }
+  int Matrix::get_height(){
+      return this->height;
+  }

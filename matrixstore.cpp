@@ -37,6 +37,8 @@ void MatrixStore::prompt_user() {
         std::cout << std::endl;
         std::cout << "2) Remove a Matrix" << std::endl;
         std::cout << std::endl;
+        std::cout << "3) Update a Matrix" << std::endl;
+        std::cout << std::endl;
         // Add more
         std::cout << "Enter menu selection (Q to quit): ";
         std::cin >> input;
@@ -111,6 +113,7 @@ void MatrixStore::prompt_user() {
                 }
                 break;
             }
+            // Decided to make this case a bit more manual, type in the explict name versus quick select, so that you can't destory hard work intentioanlly.
             case 2: {
                 std::cout << "Remove a Matrix Selected" << std::endl;
                 // empty case
@@ -132,6 +135,68 @@ void MatrixStore::prompt_user() {
                         std::cout << "Matrix \"" << matrixName << "\" not found." << std::endl;
                     }
                 }
+                break;
+            }
+            case 3: {
+                std::cout << "Update a Matrix Selected" << std::endl;
+                // empty case
+                if (store.empty()) {
+                    std::cout << "No matrices available." << std::endl
+                              << std::endl;
+                } else {
+                    std::cout << "Please enter a matrix (0 - " << store.size() << "):" << std::endl;
+                    for (int i = 0; i < store.size(); i++) {
+                        // For each node -- log name, and print matrix
+                        MatrixNode& node = store[i];
+                        std::cout << i << ") " << node.name << std::endl;
+                    }
+                    std::cout << "------------------- " << std::endl;
+                // Get user input for matrix selection
+                int selectedIndex;
+                std::cout << "Enter your choice: ";
+                std::cin >> selectedIndex;
+
+                // Validate selection
+                if (selectedIndex < 0 || selectedIndex >= store.size()) {
+                    std::cout << "Invalid selection. Returning to menu." << std::endl;
+                    break;
+                }
+
+                // Get the chosen matrix
+                Matrix& selectedMatrix = store[selectedIndex].matrix;
+
+                // USe the private members to choose accurate coordinates
+                int rows = selectedMatrix.get_height();
+                int cols = selectedMatrix.get_width();
+                std::cout << "Matrix \"" << store[selectedIndex].name << "\" selected. Dimensions: " 
+                        << rows << "x" << cols << std::endl;
+
+                // Prompt user for coordinates
+                int row, col;
+                std::cout << "Enter the row to update (0 - " << rows - 1 << "): ";
+                std::cin >> row;
+                std::cout << "Enter the column to update (0 - " << cols - 1 << "): ";
+                std::cin >> col;
+
+                // If coordinates aren't valid, cancel the update, send back to menu
+                if (row < 0 || row >= rows || col < 0 || col >= cols) {
+                    std::cout << "Invalid coordinates. Returning to menu." << std::endl;
+                    break;
+                }
+
+                // Valid coordinates, prompt for  New value
+                int newValue;
+                std::cout << "Enter the new value for position (" << row << ", " << col << "): ";
+                std::cin >> newValue;
+
+                // Update the matrix, show user and return
+                selectedMatrix.set_value(col, row, newValue);
+                std::cout << "Matrix updated successfully!" << std::endl;
+                /// show
+                std::cout << "Updated Matrix:" << std::endl;
+                selectedMatrix.print_matrix();
+                std::cout << "Returning to main menu..." << std::endl << std::endl;
+            }
                 break;
             }
             // TO DO -- add addtl math/crud operations here
