@@ -47,6 +47,8 @@ void MatrixStore::prompt_user() {
         std::cout << std::endl;
         std::cout << "7) Invert a Matrix" << std::endl;
         std::cout << std::endl;
+        std::cout << "8) Sort a Matrix (low -> high)" << std::endl;
+        std::cout << std::endl;
         std::cout << "10) Generate Demo Matricies" << std::endl;
         std::cout << std::endl;
         // Add more
@@ -457,6 +459,61 @@ void MatrixStore::prompt_user() {
             }
                 break;
             }
+            // SORT! Select row-wise or column-wise (0, 1)
+            case 8: {
+                std::cout << "Sort a matrix" << std::endl;
+                // empty case
+                if (store.empty()) {
+                    std::cout << "No matrices available." << std::endl
+                              << std::endl;
+                } else {
+                    std::cout << "Please enter a matrix (0 - " << store.size() << "):" << std::endl;
+                    for (int i = 0; i < store.size(); i++) {
+                        // For each node -- log name, and print matrix
+                        MatrixNode& node = store[i];
+                        std::cout << i << ") " << node.name << std::endl;
+                    }
+                    std::cout << "------------------- " << std::endl;
+                // Get user input for matrix selection
+                int selectedIndex;
+                std::cout << "Enter your choice: ";
+                std::cin >> selectedIndex;
+
+                // Validate selection
+                if (selectedIndex < 0 || selectedIndex >= store.size()) {
+                    std::cout << "Invalid selection. Returning to menu." << std::endl;
+                    break;
+                }
+                // Chose a sort
+                int selectedSort;
+                std::cout << "Enter your sort (0 for col, 1 for row); ";
+                std::cin >> selectedSort;
+                // used for the confirm message
+                std::string selectedSortString = selectedSort == 0 ? "column" : "row";
+
+                // Validate selection
+                if (selectedSort > 1) {
+                    std::cout << "Invalid selection. Returning to menu." << std::endl;
+                    break;
+                } else {
+                    // Get the chosen matrix
+                    Matrix& selectedMatrix = store[selectedIndex].matrix;
+                    Matrix sortedMatrix = this->sort_matrix(selectedMatrix, selectedSort);
+
+                    // Sort
+                    // TO DO
+                    this->add_matrix("Sorted by " + selectedSortString + store[selectedIndex].name, sortedMatrix);
+
+                    /// show
+                    std::cout << "Inverted Matrix:" << std::endl;
+                    sortedMatrix.print_matrix();
+                    std::cout << "Returning to main menu..." << std::endl << std::endl;
+                }
+
+
+            }
+                break;
+            }
             // Used for quick testing, should have some good numbers for math operations
             case 10: {
                 std::cout << "Create Demo Matrices" << std::endl;
@@ -638,4 +695,82 @@ Matrix MatrixStore::invert_matrix(Matrix &matrix){
         }
     }
     return inverted;
+}
+Matrix MatrixStore::sort_matrix(Matrix &matrix, int sort){
+    // row 0
+    // col 1
+    int height = matrix.get_height();
+    int width = matrix.get_width();
+    // Init sorted
+    Matrix sorted = Matrix(height, width);
+    // valid sort
+    if(sort <= 1){
+        if(sort == 0){
+            // column sort
+            for (int row = 0; row < height; row++) {
+                std::vector<int> data;
+
+                // get data
+                for (int col = 0; col < width; col++) {
+                    data.push_back(matrix.get_value(row, col));
+                }
+
+                // Use bubblesort!
+                bubblesort(data);
+
+                // write the data back into the new matrix
+                for (int col = 0; col < width; col++) {
+                    sorted.set_value(row, col, data[col]);
+                }
+            }
+        } else {
+            // row sort
+            for (int col = 0; col < width; col++) {
+                std::vector<int> data;
+
+                // collect the column data
+                for (int row = 0; row < height; row++) {
+                    data.push_back(matrix.get_value(row, col));
+                }
+
+                // Use bubblesort
+                bubblesort(data);
+
+                // Then write back into new matrix
+                for (int row = 0; row < height; row++) {
+                    sorted.set_value(row, col, data[row]);
+                }
+            }
+        }
+    // invalid sort
+    } else {
+        std::cout << "Chose a sort that isn't specified" << std::endl;
+    }
+
+    return sorted;
+}
+
+// Bubblesort from past homework works for this!
+void MatrixStore::bubblesort(std::vector<int>& data) {
+  int dataLength = data.size();
+
+  for (int i = 0; i < dataLength - 1; i++) {
+    bool unsorted = false; // flag var
+
+    for (int j = 0; j < dataLength - 1 - i; j++) {
+      int first = data[j];
+      int second = data[j + 1];
+    // swap
+      if (first > second) {
+        data[j] = second;
+        data[j + 1] = first;
+        unsorted = true;
+      }
+    }
+
+    // sorted!
+    if (!unsorted) {
+      break;
+    }
+  }
 }

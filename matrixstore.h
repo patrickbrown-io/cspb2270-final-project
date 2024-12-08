@@ -38,6 +38,8 @@ public:
     Matrix subtract_matrices(Matrix &matrixA, Matrix &matrixB);
     Matrix multiply_matrices(Matrix &matrixA, Matrix &matrixB);
     Matrix invert_matrix(Matrix &matrix);
+    Matrix sort_matrix(Matrix &matrix, int sort);
+    void bubblesort(std::vector<int> &data);
 
     // To do: tic tac toe?
 
