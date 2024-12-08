@@ -39,6 +39,8 @@ void MatrixStore::prompt_user() {
         std::cout << std::endl;
         std::cout << "3) Update a Matrix" << std::endl;
         std::cout << std::endl;
+        std::cout << "4) Add Two Matricies" << std::endl;
+        std::cout << std::endl;
         std::cout << "10) Generate Demo Matricies" << std::endl;
         std::cout << std::endl;
         // Add more
@@ -202,6 +204,76 @@ void MatrixStore::prompt_user() {
                 break;
             }
             // TO DO -- add addtl math/crud operations here
+            case 4: {
+                std::cout << "Add Matricies Selected" << std::endl;
+                // empty store
+                if (store.empty()) {
+                    std::cout << "No matrices available." << std::endl
+                              << std::endl;
+                } else {
+                // show users the available matricies
+                    std::cout << "Please enter a matrix (0 - " << store.size() << "):" << std::endl;
+                    for (int i = 0; i < store.size(); i++) {
+                        // For each node -- log name, and print matrix
+                        MatrixNode& node = store[i];
+                        std::cout << i << ") " << node.name << std::endl;
+                    }
+                    std::cout << "------------------- " << std::endl;
+                // Get user input for matrix selection
+                int selectedIndex;
+                std::cout << "Enter your choice: ";
+                std::cin >> selectedIndex;
+
+                // Validate selection
+                if (selectedIndex < 0 || selectedIndex >= store.size()) {
+                    std::cout << "Invalid selection. Returning to menu." << std::endl;
+                    break;
+                }
+                // First matrix
+                Matrix& selectedMatrix = store[selectedIndex].matrix;
+
+                // show users the available matricies
+                    std::cout << "Please enter another matrix (0 - " << store.size() << "):" << std::endl;
+                    for (int i = 0; i < store.size(); i++) {
+                        // For each node -- log name, and print matrix
+                        MatrixNode& node = store[i];
+                        std::cout << i << ") " << node.name << std::endl;
+                    }
+                    std::cout << "------------------- " << std::endl;
+                // Get user input for matrix selection
+                int selectedIndexTwo;
+                std::cout << "Enter your choice: ";
+                std::cin >> selectedIndexTwo;
+
+                // Validate selection
+                if (selectedIndexTwo < 0 || selectedIndexTwo >= store.size()) {
+                    std::cout << "Invalid selection. Returning to menu." << std::endl;
+                    break;
+                }
+                // Second Matrix
+                Matrix& selectedMatrixTwo = store[selectedIndexTwo].matrix;
+
+                // IF they're add-able, do it, else reject and send back to menu
+                if((selectedMatrix.get_height() == selectedMatrixTwo.get_height()) && (selectedMatrix.get_width() == selectedMatrixTwo.get_width())){
+                    // Add
+                    Matrix summedMatrix = add_matrices(selectedMatrix, selectedMatrixTwo);
+                    // Create a new matrix
+                    add_matrix(("Sum of " + store[selectedIndex].name + " + " + store[selectedIndexTwo].name), summedMatrix);
+                    // print it for the user
+                    std::cout << "Addition complete!" << std::endl;
+                    summedMatrix.print_matrix();
+                    std::cout << "----------------" << std::endl;
+                } else {
+                    // Show the user the mismatch
+                    std::cout << "Cannot add two matrices with inequal width or heights!" << std::endl;
+                    std::cout << "Matrix 1 Height: " << selectedMatrix.get_height() <<  "|| Selected Matrix 2 Height: " << selectedMatrixTwo.get_height() << std::endl;
+                    std::cout << "Matrix 1 Width: " << selectedMatrix.get_width() << "|| Selected Matrix 2 Width: " << selectedMatrixTwo.get_width() << std::endl;
+                    std::cout << "Returning to menu..." << std::endl;
+                    std::cout << "-----------------------------" << std::endl;
+                }
+                }
+                break;
+            }
             // Used for quick testing, should have some good numbers for math operations
             case 10: {
                 std::cout << "Create Demo Matrices" << std::endl;
@@ -301,7 +373,18 @@ void MatrixStore::print_store() {
 // TO DO -- Will need to uncomment these, throw compiler errors w/out a return atm
 
 // // Math functions - should prompt the user to select 2 matricies and then do the operation
-// Matrix MatrixStore::add_matrices(Matrix &matrixA, Matrix &matrixB){};
+Matrix MatrixStore::add_matrices(Matrix &matrixA, Matrix &matrixB){
+    Matrix newSums(matrixA.get_width(), matrixA.get_height()); // init a new matrix
+    if((matrixA.get_height() == matrixB.get_height()) && (matrixB.get_width() == matrixA.get_width())){
+        for (int i = 0; i < newSums.get_width(); i++)
+        {
+            for (int j = 0; j < newSums.get_height(); j++){
+                newSums.set_value(j, i, matrixA.get_value(j,i) + matrixB.get_value(j,i));
+            }
+        }
+        }
+    return newSums;
+};
 // Matrix MatrixStore::subtract_matrices(Matrix &matrixA, Matrix &matrixB){};
 // Matrix MatrixStore::multiply_matrices(Matrix &matrixA, Matrix &matrixB){};
 // Matrix MatrixStore::divide_matrices(Matrix &matrixA, Matrix &matrixB){};

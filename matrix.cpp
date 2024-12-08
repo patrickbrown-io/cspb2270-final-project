@@ -36,6 +36,10 @@ bool Matrix::set_value(int index_x, int index_y, int value) {
     }
     return false;
 }
+int Matrix::get_value(int index_x, int index_y) {
+// return the value
+    return data[index_y][index_x];
+}
 
 // Searches for a value in the matrix
 bool Matrix::search(int value) {

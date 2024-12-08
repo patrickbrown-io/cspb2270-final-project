@@ -20,6 +20,9 @@ public:
   // Set a value at the given (x, y) index
   bool set_value(int index_x, int index_y, int value);
 
+  // Needs a getter for values
+  int get_value(int index_x, int index_y);
+
   // Search for a value in the matrix
   bool search(int value);
 
