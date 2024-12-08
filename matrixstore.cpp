@@ -45,6 +45,8 @@ void MatrixStore::prompt_user() {
         std::cout << std::endl;
         std::cout << "6) Multiply Two Matricies" << std::endl;
         std::cout << std::endl;
+        std::cout << "7) Invert a Matrix" << std::endl;
+        std::cout << std::endl;
         std::cout << "10) Generate Demo Matricies" << std::endl;
         std::cout << std::endl;
         // Add more
@@ -417,6 +419,44 @@ void MatrixStore::prompt_user() {
                 }
                 break;
             }
+            // No such thing as division, invert
+            case 7: {
+                std::cout << "Invert a Matrix Selected" << std::endl;
+                // empty case
+                if (store.empty()) {
+                    std::cout << "No matrices available." << std::endl
+                              << std::endl;
+                } else {
+                    std::cout << "Please enter a matrix (0 - " << store.size() << "):" << std::endl;
+                    for (int i = 0; i < store.size(); i++) {
+                        // For each node -- log name, and print matrix
+                        MatrixNode& node = store[i];
+                        std::cout << i << ") " << node.name << std::endl;
+                    }
+                    std::cout << "------------------- " << std::endl;
+                // Get user input for matrix selection
+                int selectedIndex;
+                std::cout << "Enter your choice: ";
+                std::cin >> selectedIndex;
+
+                // Validate selection
+                if (selectedIndex < 0 || selectedIndex >= store.size()) {
+                    std::cout << "Invalid selection. Returning to menu." << std::endl;
+                    break;
+                }
+
+                // Get the chosen matrix
+                Matrix& selectedMatrix = store[selectedIndex].matrix;
+                Matrix inverted = invert_matrix(selectedMatrix);
+                this->add_matrix("Inverted " + store[selectedIndex].name, inverted);
+
+                /// show
+                std::cout << "Inverted Matrix:" << std::endl;
+                inverted.print_matrix();
+                std::cout << "Returning to main menu..." << std::endl << std::endl;
+            }
+                break;
+            }
             // Used for quick testing, should have some good numbers for math operations
             case 10: {
                 std::cout << "Create Demo Matrices" << std::endl;
@@ -564,6 +604,10 @@ x   x
 
 // TO DO: swap the two values if the shared dimension is the reverse
 Matrix MatrixStore::multiply_matrices(Matrix &matrixA, Matrix &matrixB){
+    // TO DO:: Figure this out
+    // if (matrixA.get_width() != matrixB.get_height() && matrixB.get_width() == matrixA.get_height()){
+        
+    // }
     // init combined matrix
     Matrix multMatrix(matrixA.get_height(), matrixB.get_width());
     // get commons
@@ -582,4 +626,16 @@ Matrix MatrixStore::multiply_matrices(Matrix &matrixA, Matrix &matrixB){
     }
     return multMatrix;
 };
-// Matrix MatrixStore::divide_matrices(Matrix &matrixA, Matrix &matrixB){};
+Matrix MatrixStore::invert_matrix(Matrix &matrix){
+    int height = matrix.get_height();
+    int width = matrix.get_width();
+    // init new inverted matrix
+    Matrix inverted = Matrix(height, width);
+    for (int i = 0; i < height; ++i)
+    {
+        for (int j = 0; j < width; ++j) {
+            inverted.set_value(i, j, matrix.get_value(i, j) * (-1));
+        }
+    }
+    return inverted;
+}

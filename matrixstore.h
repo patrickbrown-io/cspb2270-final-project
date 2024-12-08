@@ -37,7 +37,7 @@ public:
     Matrix add_matrices(Matrix &matrixA, Matrix &matrixB);
     Matrix subtract_matrices(Matrix &matrixA, Matrix &matrixB);
     Matrix multiply_matrices(Matrix &matrixA, Matrix &matrixB);
-    Matrix divide_matrices(Matrix &matrixA, Matrix &matrixB);
+    Matrix invert_matrix(Matrix &matrix);
 
     // To do: tic tac toe?
 
