@@ -22,7 +22,7 @@ public:
     void prompt_user();
 
     // Add a matrix to the store with a user-provided label (name, should make it easier for retrieval)
-    void add_matrix(std::string& name, Matrix& matrix);
+    void add_matrix(const std::string& name, Matrix& matrix);
 
     // Get a matrix by its name
     Matrix* get_matrix(std::string& name);

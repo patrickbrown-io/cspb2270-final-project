@@ -39,6 +39,8 @@ void MatrixStore::prompt_user() {
         std::cout << std::endl;
         std::cout << "3) Update a Matrix" << std::endl;
         std::cout << std::endl;
+        std::cout << "10) Generate Demo Matricies" << std::endl;
+        std::cout << std::endl;
         // Add more
         std::cout << "Enter menu selection (Q to quit): ";
         std::cin >> input;
@@ -77,7 +79,7 @@ void MatrixStore::prompt_user() {
                             std::cin >> value;
                             newMatrix.set_value(j, i, value);
                         }
-                        }
+                    }
                     // Add the matrix to the store with a name
                     std::string matrixName;
                     std::cout << "Enter a name for this matrix: ";
@@ -200,6 +202,37 @@ void MatrixStore::prompt_user() {
                 break;
             }
             // TO DO -- add addtl math/crud operations here
+            // Used for quick testing, should have some good numbers for math operations
+            case 10: {
+                std::cout << "Create Demo Matrices" << std::endl;
+                // create 4 sample matrixices
+                Matrix newMatrixOne(3, 3);
+                Matrix newMatrixTwo(3, 3);
+                Matrix newMatrixThree(4, 4);
+                Matrix newMatrixFour(4, 4);
+
+                // Add some values to all 4 matrices
+                for (int i = 0; i < 3; i++){
+                    for (int j = 0; j < 3; j++){
+                        newMatrixOne.set_value(j, i, 2 * (1+j) * (1+i));
+                        newMatrixTwo.set_value(j, i, 3 * (j+1) * (1+i));
+                    }
+                }
+
+                for (int i = 0; i < 4; i++){
+                    for (int j = 0; j < 4; j++){
+                        newMatrixThree.set_value(j, i, 10 * (j+1) * (i+1) );
+                        newMatrixFour.set_value(j, i, 5 * (j + 1) * (1 + i));
+                    }
+                }
+
+                // add to store
+                add_matrix("Test Matrix 1", newMatrixOne);
+                add_matrix("Test Matrix 2", newMatrixTwo);
+                add_matrix("Test Matrix 3", newMatrixThree);
+                add_matrix("Test Matrix 4", newMatrixFour);
+                break;
+            }
             default:
             // Handle invalid input
                 std::cout << "Invalid choice. Please try again." << std::endl;
@@ -209,7 +242,7 @@ void MatrixStore::prompt_user() {
 
 
 // Add a matrix to the store with a given name
-void MatrixStore::add_matrix(std::string& name, Matrix& matrix) {
+void MatrixStore::add_matrix(const std::string& name, Matrix& matrix) {
     // to do
     MatrixNode newMatrix;
     newMatrix.name = name;
