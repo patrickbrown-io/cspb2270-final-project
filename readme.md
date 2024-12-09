@@ -2,4 +2,9 @@
 
 A project by Patrick Brown for CSPB2270
 
-To Do: write the read me
+To Do:
+
+- write the read me
+- search, find on a matrix
+- tic tac toe
+- video walkthrough

@@ -17,7 +17,7 @@ MatrixStore::~MatrixStore() {
 // Menu System - this CLI controls the store
 // Will be able to do basic crud operations (Create, Read, Update, Delete matricies)
 // As well as basic math operations
-// Stretch goal: Tic Tac Toe?
+// Tic Tac Toe?
 void MatrixStore::prompt_user() {
     // Cool splash logo
     std::cout << "**********************************************" << std::endl;
@@ -214,7 +214,6 @@ void MatrixStore::prompt_user() {
             }
                 break;
             }
-            // TO DO -- add addtl math/crud operations here
             case 4: {
                 std::cout << "Add Matricies Selected" << std::endl;
                 // empty store
@@ -504,9 +503,7 @@ void MatrixStore::prompt_user() {
                     Matrix sortedMatrix = this->sort_matrix(selectedMatrix, selectedSort);
 
                     // Sort
-                    // TO DO
                     this->add_matrix("Sorted by " + selectedSortString + store[selectedIndex].name, sortedMatrix);
-
                     /// show
                     std::cout << "Inverted Matrix:" << std::endl;
                     sortedMatrix.print_matrix();
@@ -564,7 +561,6 @@ void MatrixStore::prompt_user() {
 
 // Add a matrix to the store with a given name
 void MatrixStore::add_matrix(const std::string& name, Matrix& matrix) {
-    // to do
     MatrixNode newMatrix;
     newMatrix.name = name;
     newMatrix.matrix = matrix;
@@ -618,9 +614,6 @@ void MatrixStore::print_store() {
         }
     }
 }
-
-// TO DO -- Will need to uncomment these, throw compiler errors w/out a return atm
-
 // // Math functions - should prompt the user to select 2 matricies and then do the operation
 Matrix MatrixStore::add_matrices(Matrix &matrixA, Matrix &matrixB){
     Matrix newSums(matrixA.get_width(), matrixA.get_height()); // init a new matrix
