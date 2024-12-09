@@ -1,6 +1,7 @@
 #include "matrixstore.h"
 #include <iostream>
 #include "matrix.h"
+#include "tictactoe.h"
 
 // Constructor
 MatrixStore::MatrixStore() {
@@ -48,6 +49,8 @@ void MatrixStore::prompt_user() {
         std::cout << "7) Invert a Matrix" << std::endl;
         std::cout << std::endl;
         std::cout << "8) Sort a Matrix (low -> high)" << std::endl;
+        std::cout << std::endl;
+        std::cout << "9) Play Tic Tac Toe" << std::endl;
         std::cout << std::endl;
         std::cout << "10) Generate Demo Matricies" << std::endl;
         std::cout << std::endl;
@@ -512,6 +515,12 @@ void MatrixStore::prompt_user() {
 
 
             }
+                break;
+            }
+            case 9: {
+                std::cout << "Let's play tic tac toe!" << std::endl;
+                TicTacToe board;
+                board.print_board();
                 break;
             }
             // Used for quick testing, should have some good numbers for math operations

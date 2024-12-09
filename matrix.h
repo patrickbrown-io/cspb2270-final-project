@@ -32,9 +32,9 @@ public:
   // Replace the value at the given (x, y) indexes
   bool replace(int index_x, int index_y, int new_value);
 
-  // Print the matrix for debugging
+  // Print the matrix for debugging/user feedback
   void print_matrix();
-
+  // Getters
   int get_width();
   int get_height();
 
