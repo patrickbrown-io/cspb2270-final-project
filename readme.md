@@ -28,7 +28,7 @@ The data structure I chose to explore was the matrix. Simply, a matrix is a numb
 
 # Installation Instructions
 
-You may choose to build this project on your own. You can run
+You may choose to build this project on your own. Clone this repository. You can run
 `g++ -o main main.cpp Matrix.cpp MatrixStore.cpp tictactoe.cpp` in the root to build, and then run `./main` to execute the program.
 
 # The Matrix Store
