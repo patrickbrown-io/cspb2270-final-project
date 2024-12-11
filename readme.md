@@ -2,7 +2,6 @@
 
 - Film walkthrough
 - Enhance CPU of tictactoe
-- Fix checks to prevent bad entry in tic tac toe
 - Other matrix manupulations
   - Search
   - Transpose
