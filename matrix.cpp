@@ -43,8 +43,30 @@ int Matrix::get_value(int index_x, int index_y) {
 
 // Searches for a value in the matrix
 bool Matrix::search(int value) {
-    // to do
+
+for (int i = 0; i < height; ++i) {
+    for (int j = 0; j < width; ++j) {
+        if(data[i][j] == value){
+            return true;
+        }
+    }
+}
   return false;
+}
+
+// Get coordinates
+std::pair<int, int> Matrix::get_coordinates(int value) {
+    // iterate over matrix
+    for (int i = 0; i < height; ++i) {
+        for (int j = 0; j < width; ++j) {
+            // if a match, return the coordinates
+            if (data[i][j] == value) {
+                return std::make_pair(i, j);
+            }
+        }
+    }
+    // else return sentinel values that prompt a bad coordinates, shouldn't happen.
+    return std::make_pair(-1, -1);
 }
 
 // Remove value at (index_x, index_y)

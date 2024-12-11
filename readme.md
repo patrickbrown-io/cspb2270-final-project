@@ -3,7 +3,6 @@
 - Film walkthrough
 - Enhance CPU of tictactoe
 - Other matrix manupulations
-  - Search
   - Transpose
   - Determinant ( more difficult )
   - Add data member `size = col * row`
@@ -81,6 +80,14 @@ This will kick off a game of tic tac toe versus the computer, using a specialize
 ### Create Demo Matrices
 
 Should you want to quickly spin up some matricies for testing, use this to create 4 sample matricies that will be stored as 'Test Matrix #'
+
+### Does this Matrix Contain?
+
+This will prompt the user to select a matrix and input a value to see if it contains the value. The Matrix Store will relay if it DOES or DOES NOT contain the value
+
+### Get Coordinates of a Value in a Matrix
+
+Similar to the above function, this will prompt the user to select a matrix and input a value to return coordinates within that matrix. If it does, you'll get coordinates. If not, it will return a message.
 
 ### Video Walkthrough
 

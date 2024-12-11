@@ -25,7 +25,8 @@ public:
 
   // Search for a value in the matrix
   bool search(int value);
-
+  // Find a value's coordinates
+  std::pair<int, int> get_coordinates(int value);
   // Remove the value at the given (x, y) indexes by setting it to zero
   bool remove(int index_x, int index_y);
 

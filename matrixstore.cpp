@@ -56,6 +56,10 @@ void MatrixStore::prompt_user() {
         std::cout << std::endl;
         std::cout << "10) Generate Demo Matricies" << std::endl;
         std::cout << std::endl;
+        std::cout << "11) Does this Matrix Contain?" << std::endl;
+        std::cout << std::endl;
+        std::cout << "12) Get Coordinates of a Value in a Matrix" << std::endl;
+        std::cout << std::endl;
         // Add more
         std::cout << "Enter menu selection (Q to quit): ";
         std::cin >> input;
@@ -68,7 +72,9 @@ void MatrixStore::prompt_user() {
         }
 
         // This is needed to convert input to an int and then turn that into choice, since input is setup to also hand the q's
-        choice = (isdigit(input[0]) || (input[0] == '-' && input.size() > 1 && isdigit(input[1]))) ? stoi(input) : -1;
+        bool isNumeric = !input.empty() && std::all_of(input.begin(), input.end(), ::isdigit);
+        choice = isNumeric ? stoi(input) : -1;
+
         // Useer choices
         switch(choice){
             case 0: {
@@ -660,6 +666,87 @@ void MatrixStore::prompt_user() {
                 add_matrix("Test Matrix 2", newMatrixTwo);
                 add_matrix("Test Matrix 3", newMatrixThree);
                 add_matrix("Test Matrix 4", newMatrixFour);
+                break;
+            }
+            case 11: {
+                std::cout << "Does this Matrix Contain a Value? selected" << std::endl;
+                // empty case
+                if (store.empty()) {
+                    std::cout << "No matrices available." << std::endl
+                              << std::endl;
+                } else {
+                    std::cout << "Please enter a matrix (0 - " << store.size() << "):" << std::endl;
+                    for (int i = 0; i < store.size(); i++) {
+                        // For each node -- log name, and print matrix
+                        MatrixNode& node = store[i];
+                        std::cout << i << ") " << node.name << std::endl;
+                    }
+                    std::cout << "------------------- " << std::endl;
+                // Get user input for matrix selection
+                int selectedIndex;
+                std::cout << "Enter your choice: ";
+                std::cin >> selectedIndex;
+
+                // Validate selection
+                if (selectedIndex < 0 || selectedIndex >= store.size()) {
+                    std::cout << "Invalid selection. Returning to menu." << std::endl;
+                    break;
+                }
+
+                // Get the chosen matrix
+                Matrix& selectedMatrix = store[selectedIndex].matrix;
+
+                int searchValue;
+                std::cout << "Enter the value to search for: ";
+                std::cin >> searchValue;
+
+                std::string doesContain = selectedMatrix.search(searchValue) ? " DOES contain " : " does not contain ";
+                std::cout << store[selectedIndex].name << doesContain << " " << searchValue << std::endl;
+                }
+                break;
+            }
+
+                        case 12: {
+                std::cout << "Get Value Coordinates" << std::endl;
+                // empty case
+                if (store.empty()) {
+                    std::cout << "No matrices available." << std::endl
+                              << std::endl;
+                } else {
+                    std::cout << "Please enter a matrix (0 - " << store.size() << "):" << std::endl;
+                    for (int i = 0; i < store.size(); i++) {
+                        // For each node -- log name, and print matrix
+                        MatrixNode& node = store[i];
+                        std::cout << i << ") " << node.name << std::endl;
+                    }
+                    std::cout << "------------------- " << std::endl;
+                // Get user input for matrix selection
+                int selectedIndex;
+                std::cout << "Enter your choice: ";
+                std::cin >> selectedIndex;
+
+                // Validate selection
+                if (selectedIndex < 0 || selectedIndex >= store.size()) {
+                    std::cout << "Invalid selection. Returning to menu." << std::endl;
+                    break;
+                }
+
+                // Get the chosen matrix
+                Matrix& selectedMatrix = store[selectedIndex].matrix;
+
+                int searchValue;
+                std::cout << "Enter the value to search for: ";
+                std::cin >> searchValue;
+
+                // Check if the value is in the matrix, if not show user
+                if(!selectedMatrix.search(searchValue)){
+                    std::cout << searchValue << " is not an entry in " << store[selectedIndex].name << std::endl;
+                } else {
+                    // return the coordinates
+                    std::pair<int, int> coodinates = store[selectedIndex].matrix.get_coordinates(searchValue);
+                    std::cout << "(" << coodinates.first << " , " << coodinates.second << ")" << std::endl;
+                }
+                }
                 break;
             }
             default:
