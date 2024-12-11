@@ -2,6 +2,8 @@
 #include <iostream>
 #include "matrix.h"
 #include "tictactoe.h"
+#include <ctime>
+
 
 // Constructor
 MatrixStore::MatrixStore() {
@@ -516,8 +518,107 @@ void MatrixStore::prompt_user() {
             }
             case 9: {
                 std::cout << "Let's play tic tac toe!" << std::endl;
+                std::cout << "You will be X's...." << std::endl;
+                // init scores to 0
                 TicTacToe board;
-                board.print_board();
+                board.set_comp_score(); // cpu
+                board.set_player_score(); // player 
+                
+                bool playAgain = true;
+                // Start game loop, maintains the game state
+                while (playAgain) {
+                    board.clear_board();
+                    board.print_board(); // blank board
+
+                    // Decide who goes first: 0 for player, 1 for computer
+                    std::srand(std::time(0)); // Seed random number generator
+                    int currentPlayer = std::rand() % 2; // Randomly choose starting player
+                    std::cout << (currentPlayer == 0 ? "You go first!" : "Computer goes first!") << std::endl;
+
+                    bool gameOver = false; // init flag to keep the game loop goin
+
+                    // Per-Game loop
+                    while (!gameOver) {
+                        // Player's turn
+                        if (currentPlayer == 0) {
+                            int position;
+                            bool validMove = false;
+                            while (!validMove) {
+                                std::cout << "Choose a position (1-9): ";
+                                std::cin >> position;
+
+                                // This just simplifies the coordinates so you don't have to type two numbers, spots like a phone:
+                                // 1 2 3
+                                // 3 4 5
+                                // 7 8 9
+                                int row = (position - 1) / 3;
+                                int col = (position - 1) % 3;
+                                // if the move is valid, set it and flag true
+                                if (position >= 1 && position <= 9 && board.is_valid_move(row, col)) {
+                                    board.set_value(row, col, 'x');
+                                    validMove = true;
+                                } else {
+                                    // reject and force reprompt
+                                    std::cout << "Invalid move. Try again." << std::endl;
+                                }
+                            }
+                        } else {
+                            // Computer's turn, = 1
+                            std::cout << "Computer's turn..." << std::endl;
+                            board.choose_move(); // Computer does its move
+                        }
+
+                        // Print the board after each turn
+                        board.print_board();
+
+                        // Check for a winner
+                        if (board.check_winner()) {
+                            if (currentPlayer == 0) {
+                                std::cout << "Congratulations, you win!" << std::endl;
+                                board.inc_player_score();
+                            } else {
+                                std::cout << "Computer wins! Better luck next time!" << std::endl;
+                                board.inc_comp_score();
+                            }
+                            gameOver = true;
+                        } else {
+                            // Check for a draw
+                            bool draw = true;
+                            for (int row = 0; row < 3; ++row) {
+                                for (int col = 0; col < 3; ++col) {
+                                    if (board.is_valid_move(row, col)) {
+                                        draw = false;
+                                        break;
+                                    }
+                                }
+                                if (!draw) break;
+                            }
+                            // draw flag triggered!
+                            if (draw) {
+                                std::cout << "It's a draw!" << std::endl;
+                                gameOver = true;
+                            }
+                        }
+
+                        // Switch turns
+                        currentPlayer = 1 - currentPlayer;
+                    }
+
+                    // print scores
+                    std::cout << "=====SCORES=====" << std::endl;
+                    std::cout << "You: " << board.get_player_score() << std::endl;
+                    std::cout << "Computer: " << board.get_comp_score() << std::endl;
+                    std::cout << "================" << std::endl;
+
+                    // Play again?
+                    char response;
+                    std::cout << "Play again? (y/n): ";
+                    std::cin >> response;
+                    playAgain = (response == 'y' || response == 'Y');
+                }
+
+                std::cout << "Thanks for playing!" << std::endl;
+
                 break;
             }
             // Used for quick testing, should have some good numbers for math operations
