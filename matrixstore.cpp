@@ -544,6 +544,8 @@ void MatrixStore::prompt_user() {
                             int position;
                             bool validMove = false;
                             while (!validMove) {
+
+                                // TO DO -- fix bug with breaking if entering a string
                                 std::cout << "Choose a position (1-9): ";
                                 std::cin >> position;
 
@@ -551,6 +553,7 @@ void MatrixStore::prompt_user() {
                                 // 1 2 3
                                 // 3 4 5
                                 // 7 8 9
+                                
                                 int row = (position - 1) / 3;
                                 int col = (position - 1) % 3;
                                 // if the move is valid, set it and flag true
