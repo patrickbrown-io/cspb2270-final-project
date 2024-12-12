@@ -2,10 +2,6 @@
 
 - Film walkthrough
 - Enhance CPU of tictactoe
-- Other matrix manupulations
-  - Transpose
-  - Determinant ( more difficult )
-  - Add data member `size = col * row`
 - Remove this when done
 
 # Matricies: Management, Manipulation, Mathematics and More!
@@ -88,6 +84,10 @@ This will prompt the user to select a matrix and input a value to see if it cont
 ### Get Coordinates of a Value in a Matrix
 
 Similar to the above function, this will prompt the user to select a matrix and input a value to return coordinates within that matrix. If it does, you'll get coordinates. If not, it will return a message.
+
+### Transpose a Matrix (Swap rows and columns)
+
+As described, this process will prompt a user to select a matrix and then it will create a new matrix swapping the rows and columns (called a transpose) in the Matrix Store called "Transpose of MatrixName".
 
 ### Video Walkthrough
 

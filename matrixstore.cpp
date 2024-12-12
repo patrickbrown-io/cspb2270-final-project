@@ -60,6 +60,8 @@ void MatrixStore::prompt_user() {
         std::cout << std::endl;
         std::cout << "12) Get Coordinates of a Value in a Matrix" << std::endl;
         std::cout << std::endl;
+        std::cout << "13) Transpose a Matrix (Swap rows and columns)" << std::endl;
+        std::cout << std::endl;
         // Add more
         std::cout << "Enter menu selection (Q to quit): ";
         std::cin >> input;
@@ -706,7 +708,7 @@ void MatrixStore::prompt_user() {
                 break;
             }
 
-                        case 12: {
+            case 12: {
                 std::cout << "Get Value Coordinates" << std::endl;
                 // empty case
                 if (store.empty()) {
@@ -747,6 +749,46 @@ void MatrixStore::prompt_user() {
                     std::cout << "(" << coodinates.first << " , " << coodinates.second << ")" << std::endl;
                 }
                 }
+                break;
+            }
+            case 13: {
+                std::cout << "Transpose a Matrix" << std::endl;
+                // empty case
+                if (store.empty()) {
+                    std::cout << "No matrices available." << std::endl
+                              << std::endl;
+                } else {
+                    std::cout << "Please enter a matrix (0 - " << store.size() << "):" << std::endl;
+                    for (int i = 0; i < store.size(); i++) {
+                        // For each node -- log name, and print matrix
+                        MatrixNode& node = store[i];
+                        std::cout << i << ") " << node.name << std::endl;
+                    }
+                    std::cout << "------------------- " << std::endl;
+                // Get user input for matrix selection
+                int selectedIndex;
+                std::cout << "Enter your choice: ";
+                std::cin >> selectedIndex;
+
+                // Validate selection
+                if (selectedIndex < 0 || selectedIndex >= store.size()) {
+                    std::cout << "Invalid selection. Returning to menu." << std::endl;
+                    break;
+                }
+
+                // Get the chosen matrix
+                Matrix& selectedMatrix = store[selectedIndex].matrix;
+                // Create the transposed
+                Matrix transposedMatrix = transpose_matrix(selectedMatrix);
+                // add to strore
+                add_matrix("Transpose of " + store[selectedIndex].name, transposedMatrix);
+                std::cout << "Matrix transposed!" << std::endl;
+                /// show
+                std::cout << "Transposed Matrix:" << std::endl;
+                transposedMatrix.print_matrix();
+
+                std::cout << "Returning to main menu..." << std::endl << std::endl;
+            }
                 break;
             }
             default:
@@ -949,7 +991,19 @@ Matrix MatrixStore::sort_matrix(Matrix &matrix, int sort){
 
     return sorted;
 }
-
+Matrix MatrixStore::transpose_matrix(Matrix &matrix){
+    int height = matrix.get_height();
+    int width = matrix.get_width();
+    // Init transposed, swap height and width
+    Matrix transposed = Matrix(height, width);
+    // Iterate over original, set values of  the transpose 
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            transposed.set_value(i, j, matrix.get_value(j, i));
+        }
+    }
+    return transposed;
+}
 // Bubblesort from past homework works for this!
 void MatrixStore::bubblesort(std::vector<int>& data) {
   int dataLength = data.size();
