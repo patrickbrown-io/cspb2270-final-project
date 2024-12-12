@@ -2,6 +2,15 @@
 
 // init 3x3 board with - as placeholders
 
+/***
+ * // Like a phone, pick a slot!
+ * 
+ *    - - -           1 2 3
+ *    - - -   ===>    4 5 6
+ *    - - -           7 8 9
+ * 
+ */
+
 TicTacToe::TicTacToe() : data(3, std::vector<char>(3, '-')) {}
 
 
@@ -55,14 +64,65 @@ void TicTacToe::choose_move(){
         set_value(1, 1, 'o');
     } else {
     // find the next empty spot
-    // TO DO:
         // Check if self is about to win, chose correctly
         // Check if player is about to win, block
         // ELSE go in a random spot
+    // Check rows for a win
+        // Check rows for a win
+        // x x -, x - x, - x x
+        // OR o o -, o - o, - o o
+        // Check rows for potential wins or blocks
+    for (int row = 0; row < 3; row++) {
+        int cpuCount = 0, playerCount = 0, emptyCol = -1; // count the chars in a row
+        for (int col = 0; col < 3; col++) {
+            if (data[row][col] == 'o'){
+                cpuCount++; 
+            } 
+            else if (data[row][col] == 'x') {
+                playerCount++;
+            }
+            else {
+                emptyCol = col;
+            }
+        }
+        // if a row can win, place and win
+        if (cpuCount == 2 && emptyCol != -1) {
+            set_value(row, emptyCol, 'o');
+            return;
+        }
+        // if player is about to win, block them!
+        if (playerCount == 2 && emptyCol != -1) {
+            set_value(row, emptyCol, 'o');
+            return;
+        }
+    }
+
+    // column checks -> same as row, if 2 player or cpu ACT
+    for (int col = 0; col < 3; col++) {
+        int cpuCount = 0, playerCount = 0, emptyRow = -1;
+        for (int row = 0; row < 3; row++) {
+            if (data[row][col] == 'o') cpuCount++;
+            else if (data[row][col] == 'x') playerCount++;
+            else emptyRow = row;
+        }
+        // If the CPU can win, complete the column, 2os and a blank
+        if (cpuCount == 2 && emptyRow != -1) {
+            set_value(emptyRow, col, 'o');
+            return;
+        }
+        // If the player is about to win, block the column (2xs and a blank)
+        if (playerCount == 2 && emptyRow != -1) {
+            set_value(emptyRow, col, 'o');
+            return;
+        }
+    }
+
+    // First available spot fallback in case it all falls apart
     for (int row = 0; row < 3; ++row) {
         for (int col = 0; col < 3; ++col) {
+            // we find an open valid spot
             if (is_valid_move(row, col)) {
-                set_value(row, col, 'o');
+                set_value(row, col, 'o'); // act on it, doesn't matter
                 return;
             }
         }
@@ -70,6 +130,7 @@ void TicTacToe::choose_move(){
     }
 }
 
+// checks that its within range, and is a blank
 bool TicTacToe::is_valid_move(int row, int col) {
     // coordinates are correct?
     if (row < 0 || row >= 3 || col < 0 || col >= 3) {

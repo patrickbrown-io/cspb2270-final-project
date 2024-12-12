@@ -1,9 +1,3 @@
-# STILL TO DO CHECKLIST
-
-- Film walkthrough
-- Enhance CPU of tictactoe
-- Remove this when done
-
 # Matricies: Management, Manipulation, Mathematics and More!
 
 A project by Patrick Brown for CSPB2270
@@ -71,7 +65,7 @@ Choose a matrix, and then choose whether to sort it row-wise or column wise. It 
 
 ### Tic Tac Toe
 
-This will kick off a game of tic tac toe versus the computer, using a specialized matrix with member variables to store game state. Play a classic game of tic tac toe against a computer till your heart is content. The game will keep score and the computer will try its hardest to defeat you.
+This will kick off a game of tic tac toe versus the computer, using a specialized matrix with member variables to store game state. Play a classic game of tic tac toe against a computer till your heart is content. The game will keep score and the computer will try its hardest to defeat you! Good luck
 
 ### Create Demo Matrices
 
