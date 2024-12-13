@@ -614,9 +614,8 @@ void MatrixStore::prompt_user() {
 
                                 // Fixes invalid input if not a number, could break the % operator
                                 if (std::cin.fail()) {
-                                    std::cin.clear(); // Clear the error flag
-                                    while (std::cin.get() != '\n'); // Discard invalid input manually
-                                    // Reprompt for correct input, try again
+                                    std::cin.clear(); 
+                                    while (std::cin.get() != '\n');
                                     std::cout << "Invalid input. Please enter a number between 1 and 9." << std::endl;
                                     continue;
                                 }
@@ -866,9 +865,6 @@ void MatrixStore::add_matrix(const std::string& name, Matrix& matrix) {
     std::cout << name << "' added to the store." << std::endl;
 }
 
-// TO DO -- looks right but isnt implemented anywhere yet
-// Get a matrix by its name. NEED TO TEST.
-// Can use for update or sort?
 Matrix* MatrixStore::get_matrix(std::string& name) {
     // iterate over the store and return the pointer
     for (int i = 0; i < store.size(); i++){
@@ -957,12 +953,7 @@ x   x
 
  */
 
-// TO DO: swap the two values if the shared dimension is the reverse
 Matrix MatrixStore::multiply_matrices(Matrix &matrixA, Matrix &matrixB){
-    // TO DO:: Figure this out
-    // if (matrixA.get_width() != matrixB.get_height() && matrixB.get_width() == matrixA.get_height()){
-        
-    // }
     // init combined matrix
     Matrix multMatrix(matrixA.get_height(), matrixB.get_width());
     // get commons

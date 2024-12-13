@@ -54,7 +54,6 @@ char TicTacToe::get_value(int row, int col){
 }
 
 void TicTacToe::choose_move(){
-    // to do -- this should be the computer's move
     // on its turn, find an empty space if the board is not full. if there is already an o somewhere, pick another spot that can lead to a win (next to or diagnoal)
     // if first move, go in the middle, else find an empty spot
     // we could expand this decision to check if they can win to chose a winning move, if the player is going to win to make a block
