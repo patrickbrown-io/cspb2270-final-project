@@ -74,8 +74,23 @@ void MatrixStore::prompt_user() {
         }
 
         // This is needed to convert input to an int and then turn that into choice, since input is setup to also hand the q's
-        bool isNumeric = !input.empty() && std::all_of(input.begin(), input.end(), ::isdigit);
-        choice = isNumeric ? stoi(input) : -1;
+        bool isNumeric = !input.empty();
+        // iterate over the input and convert to char
+        for (std::string::size_type i = 0; i < input.size(); ++i) {
+            char ch = input[i];
+            if (!std::isdigit(static_cast<unsigned char>(ch))) {
+                isNumeric = false;
+                break;
+            }
+        }
+        // Convert to int, or -1
+        int choice = isNumeric ? std::stoi(input) : -1;
+
+        // invalid inputs
+        if (std::cin.fail()) {
+            std::cin.clear();  // clear error
+            while (std::cin.get() != '\n');  // ignore a bad input until the next newline is hit
+        }
 
         // Useer choices
         switch(choice){
