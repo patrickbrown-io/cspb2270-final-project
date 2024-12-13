@@ -2,6 +2,11 @@
 
 A project by Patrick Brown for CSPB2270
 
+## Project Walkthrough
+
+If you'd rather watch a complete walkthrough, use the Vimeo link below. Will be deleted January 31, 2025
+https://vimeo.com/1039064206
+
 ## Structure Implemented
 
 The data structure I chose to explore was the matrix. Simply, a matrix is a number of entries into rows and columns. An entry can be a number to be manipulated using mathematics or even pixels in an image to be manipulated. It can be used for pathfinding in video games. Regardless of the use case, matrices allow for efficient storage and manipulation of data in a structured format.
