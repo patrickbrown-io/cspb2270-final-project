@@ -4,7 +4,7 @@ A project by Patrick Brown for CSPB2270
 
 ## Project Walkthrough
 
-If you'd rather watch a complete walkthrough, use the Vimeo link below. Will be deleted January 31, 2025
+If you'd rather watch a complete walkthrough, use the Vimeo link below. Will be deleted January 31, 2025.
 https://vimeo.com/1039064206
 
 ## Structure Implemented
@@ -26,7 +26,7 @@ You can simply run `./matrix` in your command line of choice
 # Installation Instructions -- Compile and run
 
 You may choose to build this project on your own. Clone this repository. You can run
-`g++ -o main main.cpp matrix.cpp matrixstore.cpp tictactoe.cpp` in the root to build, and then run `./main` to execute the program.
+`g++ -o main main.cpp matrix.cpp matrixstore.cpp tictactoe.cpp` in the root to build, and then run `./main` to execute the program. You may also change the name by replacing main with the name of your choice!
 
 # The Matrix Store
 
@@ -90,8 +90,4 @@ Similar to the above function, this will prompt the user to select a matrix and 
 
 ### Transpose a Matrix (Swap rows and columns)
 
-As described, this process will prompt a user to select a matrix and then it will create a new matrix swapping the rows and columns (called a transpose) in the Matrix Store called "Transpose of MatrixName".
-
-### Video Walkthrough
-
-- TO DO
+As described, this process will prompt a user to select a matrix and then it will create a new matrix swapping the rows and columns (called a transpose) in the Matrix Store called "Transpose of MatrixName". This transpose is used in using matricies in linear algebra.
