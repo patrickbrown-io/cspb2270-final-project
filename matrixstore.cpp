@@ -96,26 +96,63 @@ void MatrixStore::prompt_user() {
         switch(choice){
             case 0: {
                 std::cout << "Create a Matrix Selected" << std::endl;
-                    // Get dimensions from the user
-                    int rows, cols;
+                // Get dimensions from the user
+                int rows, cols;
+
+                // Prompt for number of rows
+                do {
                     std::cout << "Enter the number of rows: ";
                     std::cin >> rows;
+
+                    // Handle bad input
+                    if (std::cin.fail() || rows <= 0) {
+                        std::cin.clear(); // clear error
+                        while (std::cin.get() != '\n'); // discard and reprompt
+                        std::cout << "Bad input. Please enter a positive number!" << std::endl;
+                    } else {
+                        break; // valid, proceed
+                    }
+                } while (true);
+
+                // Prompt for number of columns
+                do {
                     std::cout << "Enter the number of columns: ";
                     std::cin >> cols;
 
+                    // Handle bad input
+                    if (std::cin.fail() || cols <= 0) {
+                        std::cin.clear();
+                        while (std::cin.get() != '\n'); // discard and reprompts
+                        std::cout << "Bad input. Please enter a positive number!" << std::endl;
+                    } else {
+                        break; // valid
+                    }
+                } while (true);
                     // Create a matrix!
                     Matrix newMatrix(cols, rows);
                     // Counter for total to enter
                     int totalCount = rows * cols;
                     // Insert values until we hit the counts
-                    for (int i = 0; i < rows; i++)
-                    {
-                        for (int j = 0; j < cols; j++)
-                        {   // log a count for ease of user input
-                            std::cout << "Enter value (" << (totalCount--) << " left): ";
-                            int value;
-                            std::cin >> value;
-                            newMatrix.set_value(j, i, value);
+                    for (int i = 0; i < rows; i++) {
+                        for (int j = 0; j < cols; j++) {
+                            bool validInput = false; // Flag for valid input
+                            do {
+                                std::cout << "Enter value (" << totalCount << " left): ";
+                                int value;
+                                std::cin >> value;
+
+                                // Check for invalid input
+                                if (std::cin.fail()) {
+                                    std::cin.clear();
+                                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                                    std::cout << "Bad input. Please enter a positive number!" << std::endl;
+                                } else {
+                                    // Success: set the value and decrement the counter
+                                    validInput = true;
+                                    newMatrix.set_value(j, i, value);
+                                    totalCount--;
+                                }
+                            } while (!validInput); // Keep prompting until a valid input is provided
                         }
                     }
                     // Add the matrix to the store with a name
@@ -812,7 +849,6 @@ void MatrixStore::prompt_user() {
             }
     } while (true);
 }
-
 
 // Add a matrix to the store with a given name
 void MatrixStore::add_matrix(const std::string& name, Matrix& matrix) {

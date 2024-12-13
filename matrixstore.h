@@ -42,8 +42,6 @@ public:
     Matrix transpose_matrix(Matrix &matrix);
     void bubblesort(std::vector<int> &data);
 
-    // To do: tic tac toe?
-
 private:
     // Struct for storing matrix nodes within the store, but with a user-created label
     // Could add addtl attributes here. Could also add operations? We'll see.

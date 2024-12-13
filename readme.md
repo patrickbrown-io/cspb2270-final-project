@@ -14,10 +14,14 @@ The data structure I chose to explore was the matrix. Simply, a matrix is a numb
 - It's inverse may be used to solve linear equations
 - And so much more!
 
-# Installation Instructions
+# Run as is
+
+You can simply run `./matrix` in your command line of choice
+
+# Installation Instructions -- Compile and run
 
 You may choose to build this project on your own. Clone this repository. You can run
-`g++ -o main main.cpp Matrix.cpp MatrixStore.cpp tictactoe.cpp` in the root to build, and then run `./main` to execute the program.
+`g++ -o main main.cpp matrix.cpp matrixstore.cpp tictactoe.cpp` in the root to build, and then run `./main` to execute the program.
 
 # The Matrix Store
 
