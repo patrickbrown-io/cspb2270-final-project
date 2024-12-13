@@ -140,18 +140,17 @@ void MatrixStore::prompt_user() {
                                 std::cout << "Enter value (" << totalCount << " left): ";
                                 int value;
                                 std::cin >> value;
-
-                                // Check for invalid input
-                                if (std::cin.fail()) {
-                                    std::cin.clear();
-                                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                                    std::cout << "Bad input. Please enter a positive number!" << std::endl;
-                                } else {
-                                    // Success: set the value and decrement the counter
-                                    validInput = true;
-                                    newMatrix.set_value(j, i, value);
-                                    totalCount--;
-                                }
+                            // Check for invalid input
+                            if (std::cin.fail()) {
+                                std::cin.clear();
+                                while (std::cin.get() != '\n');
+                                std::cout << "Bad input. Please enter an integer!" << std::endl;
+                            } else {
+                                // Success: set the value and decrement the counter
+                                validInput = true;
+                                newMatrix.set_value(j, i, value);
+                                totalCount--;
+                            }
                             } while (!validInput); // Keep prompting until a valid input is provided
                         }
                     }
