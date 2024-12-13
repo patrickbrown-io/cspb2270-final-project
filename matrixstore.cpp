@@ -157,9 +157,11 @@ void MatrixStore::prompt_user() {
                     // Add the matrix to the store with a name
                     std::string matrixName;
                     std::cout << "Enter a name for this matrix: ";
-                    // this line is needed to not trigger the menu tree until the return
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                    // get the matrix name
+
+                    // clear input buffer
+                    while (std::cin.get() != '\n'); 
+
+                    // Get the matrix name
                     std::getline(std::cin, matrixName);
 
 
@@ -200,9 +202,12 @@ void MatrixStore::prompt_user() {
                     // input name of the matrix they want to destroy
                     std::string matrixName;
                     std::cout << "Enter the name of the matrix to remove: ";
-                    // this line is needed to clear input buffer
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                    std::getline(std::cin, matrixName); // Get the matrix name
+
+                    std::cin.clear(); 
+                    while (std::cin.get() != '\n');
+
+                    // Get the matrix name
+                    std::getline(std::cin, matrixName);
 
                     // remove it, or provide failure message
                     if (remove_matrix(matrixName)) {
@@ -609,12 +614,13 @@ void MatrixStore::prompt_user() {
 
                                 // Fixes invalid input if not a number, could break the % operator
                                 if (std::cin.fail()) {
-                                    std::cin.clear();
-                                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-                                    // reprompt for correct input, try again
+                                    std::cin.clear(); // Clear the error flag
+                                    while (std::cin.get() != '\n'); // Discard invalid input manually
+                                    // Reprompt for correct input, try again
                                     std::cout << "Invalid input. Please enter a number between 1 and 9." << std::endl;
                                     continue;
                                 }
+
 
                                 // This just simplifies the coordinates so you don't have to type two numbers, spots like a phone:
                                 // 1 2 3
