@@ -69,22 +69,10 @@ std::pair<int, int> Matrix::get_coordinates(int value) {
     return std::make_pair(-1, -1);
 }
 
-// Remove value at (index_x, index_y)
-bool Matrix::remove(int index_x, int index_y) {
-  // to do
-  return true;
-}
-
-// Replaces value at the (index_x, index_y)
-bool replace(int index_x, int index_y, int new_value) { 
-    // to do
-    return true; 
-}
-
 // Prints the matrix
 void Matrix::print_matrix() {
     for (int i = 0; i < height; ++i) {
-        for (int j = 0; j < width; ++j) {
+        for (int j = 0; j < width; ++j) { 
             std::cout << data[i][j] << " ";
         }
         std::cout << std::endl; // adds a new line after the rows to better resemble a matrix

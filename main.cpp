@@ -15,4 +15,5 @@ int main() {
 
 // Compile notes:
 // To compile you have to run ALL the files, not just main.
-//g++ -o main main.cpp Matrix.cpp MatrixStore.cpp <newfiles.cpp>...
+// g++ -o main main.cpp Matrix.cpp MatrixStore.cpp tictactoe.cpp 
+// ^^ will init as main

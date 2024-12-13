@@ -2,7 +2,7 @@
 #include <iostream>
 #include "matrix.h"
 #include "tictactoe.h"
-#include <ctime>
+#include <ctime> // this is just used for randomizing the 'coin flip' to determine who goes first in tictactoe
 
 
 // Constructor
