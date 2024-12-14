@@ -5,7 +5,7 @@ A project by Patrick Brown for CSPB2270
 ## Project Walkthrough
 
 If you'd rather watch a complete walkthrough, use the Vimeo link below. Will be deleted January 31, 2025.
-https://vimeo.com/1039064206
+https://vimeo.com/1039246468
 
 ## Structure Implemented
 
